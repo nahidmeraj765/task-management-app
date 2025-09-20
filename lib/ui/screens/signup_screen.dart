@@ -1,19 +1,22 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_task_management_app/ui/screens/forgot_password_verify_screen.dart';
-import 'package:flutter_application_task_management_app/ui/screens/signup_screen.dart';
+import 'package:flutter_application_task_management_app/ui/screens/login_screen.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/screen_background.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -32,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const SizedBox(height: 82),
                     Text(
-                      'Get Started With',
+                      'Join With Us',
                       style: GoogleFonts.notoSerif(
                         textStyle: Theme.of(context).textTheme.titleLarge,
                       ),
@@ -44,13 +47,28 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 8),
                     TextFormField(
+                      controller: _firstNameController,
+                      decoration: InputDecoration(hintText: 'First name'),
+                    ),
+                    const SizedBox(height: 8),
+                    TextFormField(
+                      controller: _lastNameController,
+                      decoration: InputDecoration(hintText: 'Last name'),
+                    ),
+                    const SizedBox(height: 8),
+                    TextFormField(
+                      controller: _phoneNumberController,
+                      decoration: InputDecoration(hintText: 'Phone number'),
+                    ),
+                    const SizedBox(height: 8),
+                    TextFormField(
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(hintText: 'Password'),
                     ),
                     const SizedBox(height: 16),
                     FilledButton(
-                      onPressed: (){},
+                      onPressed: () {},
                       child: Icon(Icons.arrow_circle_right_outlined),
                     ),
                     const SizedBox(height: 36),
@@ -72,17 +90,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              text: "Don't have an account? ",
+                              text: "Already have an account? ",
                               children: [
                                 TextSpan(
-                                  text: 'Sign up',
+                                  text: 'Sign in',
                                   style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  recognizer: TapGestureRecognizer()..onTap = _onTapSignUpButton,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = _onTapLogInButton,
                                 ),
                               ],
                             ),
@@ -100,8 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _onTapSignUpButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+  void _onTapLogInButton() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
   void _onTapForgotPasswordButton() {
@@ -111,6 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     _emailController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _phoneNumberController.dispose();
     _passwordController.dispose();
     super.dispose();
   }

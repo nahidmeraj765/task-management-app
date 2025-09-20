@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class TaskManagementApp extends StatelessWidget {
   const TaskManagementApp({super.key});
 
-  @overrideZ
+  @override 
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(

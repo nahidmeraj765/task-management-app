@@ -1,20 +1,22 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_task_management_app/ui/screens/forgot_password_verify_screen.dart';
+import 'package:flutter_application_task_management_app/ui/screens/login_screen.dart';
+import 'package:flutter_application_task_management_app/ui/screens/set_password_screen.dart';
 import 'package:flutter_application_task_management_app/ui/screens/signup_screen.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/screen_background.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ForgotPasswordOTPScreen extends StatefulWidget {
+  const ForgotPasswordOTPScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPasswordOTPScreen> createState() =>
+      _ForgotPasswordOTPScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen> {
+  final TextEditingController _otpController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,38 +34,47 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const SizedBox(height: 82),
                     Text(
-                      'Get Started With',
+                      'Enter Your OTP',
                       style: GoogleFonts.notoSerif(
                         textStyle: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
-                    const SizedBox(height: 24),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: InputDecoration(hintText: 'Email'),
+                    const SizedBox(height: 4),
+                    Text(
+                      'A 6 digits OTP has been sent to your email address',
+                      style: GoogleFonts.notoSerif(
+                        textStyle: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge?.copyWith(color: Colors.grey),
+                      ),
                     ),
-                    const SizedBox(height: 8),
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(hintText: 'Password'),
+                    const SizedBox(height: 24),
+                    PinCodeTextField(
+                      length: 6,
+                      obscureText: false,
+                      animationType: AnimationType.fade,
+                      keyboardType: TextInputType.number,
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(5),
+                        fieldHeight: 50,
+                        fieldWidth: 40,
+                        activeFillColor: Colors.white,
+                      ),
+                      animationDuration: Duration(milliseconds: 300),
+                      backgroundColor: Colors.transparent,
+                      controller: _otpController,
+                      appContext: context,
                     ),
                     const SizedBox(height: 16),
                     FilledButton(
-                      onPressed: (){},
-                      child: Icon(Icons.arrow_circle_right_outlined),
+                      onPressed: _onTapInsertOTPButton,
+                      child: Text("Verify"),
                     ),
                     const SizedBox(height: 36),
                     Center(
                       child: Column(
                         children: [
-                          TextButton(
-                            onPressed: _onTapForgotPasswordButton,
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ),
                           RichText(
                             text: TextSpan(
                               style: GoogleFonts.poppins(
@@ -72,17 +83,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              text: "Don't have an account? ",
+                              text: "Already have an account? ",
                               children: [
                                 TextSpan(
-                                  text: 'Sign up',
+                                  text: 'Sign in',
                                   style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  recognizer: TapGestureRecognizer()..onTap = _onTapSignUpButton,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = _onTapLogInButton,
                                 ),
                               ],
                             ),
@@ -100,18 +112,23 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _onTapSignUpButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+  void _onTapLogInButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
   }
 
-  void _onTapForgotPasswordButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordVerifyScreen()));
+  void _onTapInsertOTPButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SetPasswordScreen()),
+    );
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _otpController.dispose();
     super.dispose();
   }
 }
