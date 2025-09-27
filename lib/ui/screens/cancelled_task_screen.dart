@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/list_card.dart';
 
-class ProjectTaskScreen extends StatefulWidget {
-  const ProjectTaskScreen({super.key});
+class CancelledTaskScreen extends StatefulWidget {
+  const CancelledTaskScreen({super.key});
 
   @override
-  State<ProjectTaskScreen> createState() => _ProjectTaskScreenState();
+  State<CancelledTaskScreen> createState() => _CancelledTaskScreenState();
 }
 
-class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
+class _CancelledTaskScreenState extends State<CancelledTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
               child: ListView.separated(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return ListCard(text: 'New', color: Colors.deepPurple);
+                  return ListCard(text: 'Cancelled', color: Colors.red);
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(height: 8);

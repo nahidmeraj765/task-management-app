@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/list_card.dart';
 
-class ProjectTaskScreen extends StatefulWidget {
-  const ProjectTaskScreen({super.key});
+class CompletedTaskScreen extends StatefulWidget {
+  const CompletedTaskScreen({super.key});
 
   @override
-  State<ProjectTaskScreen> createState() => _ProjectTaskScreenState();
+  State<CompletedTaskScreen> createState() => _CompletedTaskScreenState();
 }
 
-class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
+class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
               child: ListView.separated(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return ListCard(text: 'New', color: Colors.deepPurple);
+                  return ListCard(text: 'Completed', color: Colors.green);
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(height: 8);

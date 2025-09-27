@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_task_management_app/ui/screens/cancelled_task_screen.dart';
+import 'package:flutter_application_task_management_app/ui/screens/completed_task_screen.dart';
+import 'package:flutter_application_task_management_app/ui/screens/new_task_screen.dart';
 import 'package:flutter_application_task_management_app/ui/screens/project_task_screen.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/tm_app_bar.dart';
 
@@ -13,10 +16,10 @@ class _MainNavbarHolderScreenState extends State<MainNavbarHolderScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
+    NewTaskScreen(),
     ProjectTaskScreen(),
-    ProjectTaskScreen(),
-    ProjectTaskScreen(),
-    ProjectTaskScreen(),
+    CancelledTaskScreen(),
+    CompletedTaskScreen(),
   ];
 
   @override

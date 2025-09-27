@@ -36,8 +36,8 @@ class TaskManagementApp extends StatelessWidget {
           ),
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: 
-        )
+          backgroundColor: Colors.green,
+        ),
       ),
       home: SplashScreen(),
     );
