@@ -21,10 +21,10 @@ class _ProjectTaskScreenState extends State<ProjectTaskScreen> {
               child: ListView.separated(
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                  return ListCard(text: 'New', color: Colors.deepPurple);
+                  return ListCard(text: 'Progressed', color: Colors.deepPurple);
                 },
                 separatorBuilder: (context, index) {
-                  return SizedBox(height: 8);
+                  return SizedBox(height: 16);
                 },
               ),
             ),

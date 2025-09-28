@@ -17,7 +17,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             SizedBox(
               height: 90,
               child: ListView.separated(
@@ -28,7 +28,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                   return TaskCountedByStatusCard(title: "New", count: 2);
                 },
                 separatorBuilder: (context, index) {
-                  return SizedBox(width: 4);
+                  return SizedBox(width: 8);
                 },
               ),
             ),

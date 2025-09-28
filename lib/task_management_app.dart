@@ -9,6 +9,7 @@ class TaskManagementApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 234, 240, 237),
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
             .copyWith(
               titleLarge: const TextStyle(

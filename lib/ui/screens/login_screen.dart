@@ -83,7 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  recognizer: TapGestureRecognizer()..onTap = _onTapSignUpButton,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = _onTapSignUpButton,
                                 ),
                               ],
                             ),
@@ -102,15 +103,25 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onTapSignUpButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignUpScreen()),
+    );
   }
 
   void _onTapForgotPasswordButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordVerifyScreen()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ForgotPasswordVerifyScreen()),
+    );
   }
 
   void _onTapSignInButton() {
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MainNavbarHolderScreen()), (predicate)=> false);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => MainNavbarHolderScreen()),
+      (predicate) => false,
+    );
   }
 
   @override

@@ -1,18 +1,16 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_task_management_app/ui/screens/forgot_password_verify_screen.dart';
-import 'package:flutter_application_task_management_app/ui/screens/login_screen.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/screen_background.dart';
+import 'package:flutter_application_task_management_app/ui/widgets/tm_app_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class UpdateProfileScreen extends StatefulWidget {
+  const UpdateProfileScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -23,6 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: TMAppBar(),
       body: SafeArea(
         child: ScreenBackground(
           child: Padding(
@@ -35,12 +34,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     const SizedBox(height: 82),
                     Text(
-                      'Join With Us',
+                      'Update Profile',
                       style: GoogleFonts.notoSerif(
                         textStyle: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                     const SizedBox(height: 24),
+                    Container(
+                      height: 50,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          PhotoPickerField(
+                            onTap: (){},
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Expanded(
+                              child: Text(
+                                'Upload Photo',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
                     TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(hintText: 'Email'),
@@ -71,44 +95,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       onPressed: () {},
                       child: Icon(Icons.arrow_circle_right_outlined),
                     ),
-                    const SizedBox(height: 36),
-                    Center(
-                      child: Column(
-                        children: [
-                          TextButton(
-                            onPressed: _onTapForgotPasswordButton,
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              text: "Already have an account? ",
-                              children: [
-                                TextSpan(
-                                  text: 'Sign in',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = _onTapLogInButton,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -117,14 +103,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
-  }
-
-  void _onTapLogInButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-  }
-
-  void _onTapForgotPasswordButton() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordVerifyScreen()));
   }
 
   @override
@@ -137,3 +115,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 }
+

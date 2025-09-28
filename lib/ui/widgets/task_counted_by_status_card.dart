@@ -16,7 +16,7 @@ class TaskCountedByStatusCard extends StatelessWidget {
       elevation: 0,
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
         child: Column(
           children: [
             Text(title, style: Theme.of(context).textTheme.titleMedium),
