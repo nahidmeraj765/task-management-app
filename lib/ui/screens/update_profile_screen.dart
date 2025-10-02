@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_task_management_app/ui/widgets/photo_picker_field.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/screen_background.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/tm_app_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
@@ -18,10 +20,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  final ImagePicker _imagePicker = ImagePicker();
+  XFile? _selectedImage;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TMAppBar(),
+      appBar: TMAppBar(
+        fromUpdateProfile: true,
+      ),
       body: SafeArea(
         child: ScreenBackground(
           child: Padding(
@@ -49,9 +56,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                       child: Row(
                         children: [
-                          PhotoPickerField(
-                            onTap: (){},
-                          ),
+                          PhotoPickerField(onTap: _pickImage,
+                          photoName: _selectedImage,),
                           Padding(
                             padding: const EdgeInsets.only(left: 8),
                             child: Expanded(
@@ -105,6 +111,19 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     );
   }
 
+  Future<void> _pickImage() async {
+    XFile? pickedImage = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedImage != null) {
+      _selectedImage = pickedImage;
+      setState(() {
+        
+      });
+    }
+  }
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -115,4 +134,3 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     super.dispose();
   }
 }
-
