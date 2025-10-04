@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_task_management_app/ui/screens/login_screen.dart';
+import 'package:flutter_application_task_management_app/ui/screens/main_navbar_holder_screen.dart';
+import 'package:flutter_application_task_management_app/ui/screens/signup_screen.dart';
 import 'package:flutter_application_task_management_app/ui/screens/splash_screen.dart';
+import 'package:flutter_application_task_management_app/ui/screens/update_profile_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TaskManagementApp extends StatelessWidget {
@@ -40,7 +44,14 @@ class TaskManagementApp extends StatelessWidget {
           backgroundColor: Colors.green,
         ),
       ),
-      home: SplashScreen(),
+      initialRoute: SplashScreen.name,
+      routes: {
+        SplashScreen.name : (_) => SplashScreen(),
+        LoginScreen.name : (_) => LoginScreen(),
+        SignUpScreen.name : (_) => SignUpScreen(),
+        MainNavbarHolderScreen.name : (_) => MainNavbarHolderScreen(),
+        UpdateProfileScreen.name : (_) => UpdateProfileScreen(),
+      },
     );
   }
 }

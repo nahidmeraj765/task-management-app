@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+  static const String name = '/';
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -20,29 +22,29 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _moveToNextScreen() async {
     await Future.delayed(Duration(seconds: 5));
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => LoginScreen()),
-    );
+    Navigator.pushReplacementNamed(context, LoginScreen.name);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenBackground(
-        child: Center(child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(AssetPaths.logoPng, height: 150),
-            SizedBox(height: 16,),
-            Text("TaskForce Infinity", style: GoogleFonts.josefinSans(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-            ),
-          ],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(AssetPaths.logoPng, height: 150),
+              SizedBox(height: 16),
+              Text(
+                "TaskForce Infinity",
+                style: GoogleFonts.josefinSans(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

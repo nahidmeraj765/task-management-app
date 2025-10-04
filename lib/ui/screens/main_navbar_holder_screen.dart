@@ -8,6 +8,8 @@ import 'package:flutter_application_task_management_app/ui/widgets/tm_app_bar.da
 class MainNavbarHolderScreen extends StatefulWidget {
   const MainNavbarHolderScreen({super.key});
 
+  static const String name = '/dashboard';
+
   @override
   State<MainNavbarHolderScreen> createState() => _MainNavbarHolderScreenState();
 }

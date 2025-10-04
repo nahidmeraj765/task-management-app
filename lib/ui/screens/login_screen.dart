@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  static const String name = '/login-screen';
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -117,9 +119,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onTapSignInButton() {
-    Navigator.pushAndRemoveUntil(
+    Navigator.pushNamedAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => MainNavbarHolderScreen()),
+      MainNavbarHolderScreen.name,
       (predicate) => false,
     );
   }

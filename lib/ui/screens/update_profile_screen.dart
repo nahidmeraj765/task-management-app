@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
 
+  static const String name = '/update-profile';
+
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
