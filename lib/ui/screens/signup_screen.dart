@@ -133,11 +133,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Center(
                       child: Column(
                         children: [
-                          TextButton(
-                            onPressed: _onTapForgotPasswordButton,
-                            child: Text(
-                              'Forgot Password?',
-                              style: TextStyle(color: Colors.grey),
+                          Visibility(
+                            visible: _signUpInProgress == false,
+                            replacement: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            child: TextButton(
+                              onPressed: _onTapForgotPasswordButton,
+                              child: Text(
+                                'Forgot Password?',
+                                style: TextStyle(color: Colors.grey),
+                              ),
                             ),
                           ),
                           RichText(
@@ -205,6 +211,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       url: Urls.registrationUrl,
       body: requestBody,
     );
+    _signUpInProgress = false;
+    setState(() {
+      
+    });
     if (response.isSuccess) {
       _clearTextFields();
       showSnackBarMessage(context, 'Registration successful! Please login.');

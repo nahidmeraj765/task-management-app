@@ -1,9 +1,13 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_task_management_app/data/services/api_caller.dart';
+import 'package:flutter_application_task_management_app/data/utils/urls.dart';
 import 'package:flutter_application_task_management_app/ui/screens/forgot_password_verify_screen.dart';
 import 'package:flutter_application_task_management_app/ui/screens/main_navbar_holder_screen.dart';
 import 'package:flutter_application_task_management_app/ui/screens/signup_screen.dart';
 import 'package:flutter_application_task_management_app/ui/widgets/screen_background.dart';
+import 'package:flutter_application_task_management_app/ui/widgets/snack_bar_message.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  bool _signInProgressIndicator = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,18 +50,40 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 24),
                     TextFormField(
                       controller: _emailController,
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(hintText: 'Email'),
+                      validator: (String? value) {
+                        String inputText = value ?? '';
+                        if (EmailValidator.validate(inputText) == false) {
+                          return 'Enter a valid email';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(hintText: 'Password'),
+                      validator: (String? value) {
+                        String input = value?.trim() ?? '';
+                        if (input.isEmpty) {
+                          return 'Enter your password';
+                        }
+                        if (input.length < 8) {
+                          return 'Password should at least 8 characters long';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 16),
-                    FilledButton(
-                      onPressed: _onTapSignInButton,
-                      child: Icon(Icons.arrow_circle_right_outlined),
+                    Visibility(
+                      visible: _signInProgressIndicator == false,
+                      replacement: Center(child: CircularProgressIndicator()),
+                      child: FilledButton(
+                        onPressed: _onTapSignInButton,
+                        child: Icon(Icons.arrow_circle_right_outlined),
+                      ),
                     ),
                     const SizedBox(height: 36),
                     Center(
@@ -105,10 +134,33 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onTapSignUpButton() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignUpScreen()),
+    if (_formKey.currentState!.validate()) {
+      _signIn();
+    }
+  }
+
+  Future<void> _signIn() async {
+    _signInProgressIndicator = true;
+    setState(() {});
+    Map<String, dynamic> requestBody = {
+      "email": _emailController.text.trim(),
+      "password": _passwordController.text.trim(),
+    };
+    final ApiResponse response = await ApiCaller.postRequest(
+      url: Urls.loginUrl,
+      body: requestBody,
     );
+    _signInProgressIndicator = false;
+    setState(() {});
+    if (response.isSuccess && response.responseData['status'] == 'success') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SignUpScreen()),
+      );
+    } else {
+      final message = response.responseData['data'];
+      showSnackBarMessage(context, message ?? response.errorMessage!);
+    }
   }
 
   void _onTapForgotPasswordButton() {
