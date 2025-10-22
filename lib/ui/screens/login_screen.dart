@@ -1,8 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_task_management_app/data/models/user_model.dart';
 import 'package:flutter_application_task_management_app/data/services/api_caller.dart';
 import 'package:flutter_application_task_management_app/data/utils/urls.dart';
+import 'package:flutter_application_task_management_app/ui/controllers/auth_controll.dart';
 import 'package:flutter_application_task_management_app/ui/screens/forgot_password_verify_screen.dart';
 import 'package:flutter_application_task_management_app/ui/screens/main_navbar_holder_screen.dart';
 import 'package:flutter_application_task_management_app/ui/screens/signup_screen.dart';
@@ -153,6 +155,10 @@ class _LoginScreenState extends State<LoginScreen> {
     _signInProgressIndicator = false;
     setState(() {});
     if (response.isSuccess && response.responseData['status'] == 'success') {
+      UserModel model = UserModel.fromJson(response.responseData['data']);
+      String accessToken = response.responseData['token'];
+
+      await AuthController.saveUserData(model, accessToken);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => SignUpScreen()),

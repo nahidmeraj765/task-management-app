@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_task_management_app/ui/controllers/auth_controll.dart';
 import 'package:http/http.dart';
 
 class ApiCaller {
   Future<ApiResponse> getRequest({required String url}) async {
     try {
       Uri uri = Uri.parse(url);
-      Response response = await get(uri).timeout(const Duration(seconds: 10));
+      Response response = await get(uri, headers: {'token' : AuthController.accessToken ?? '' }).timeout(const Duration(seconds: 10));
 
       debugPrint(url);
       debugPrint(response.statusCode.toString());
@@ -46,7 +47,9 @@ class ApiCaller {
       Uri uri = Uri.parse(url);
       Response response = await post(
         uri,
-        headers: {'content-type': 'application/json'},
+        headers: {'content-type': 'application/json',
+        'token' : AuthController.accessToken ?? '',
+        },
         body: jsonEncode(body),
       ).timeout(const Duration(seconds: 10));
 
